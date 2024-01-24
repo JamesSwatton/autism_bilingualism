@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Authentic';
+    font-style: normal;
+    src: local(''), url('/fonts/AUTHENTICSans-60.otf');
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    src: local(''), url('/fonts/NotoSans-VariableFont_wdth,wght.ttf');
+}
+
+@font-face {
+    font-family: 'Noto Serif';
+    font-style: normal;
+    src: local(''), url('/fonts/NotoSerif-VariableFont_wdth,wght.ttf');
+}
