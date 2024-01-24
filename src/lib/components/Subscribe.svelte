@@ -4,7 +4,7 @@
 
 {#if showSubscribe}
     <div class="subscribe-container">
-        <button class="clear" on:click={() => showSubscribe = !showSubscribe}>
+        <button class="close" on:click={() => showSubscribe = !showSubscribe}>
             <img src="/close.svg" alt="close icon">
         </button>
         <form method="POST" action="?/create">
@@ -44,7 +44,7 @@
         cursor: pointer;
     }
 
-    .clear {
+    .close {
         position: absolute;
         top: 0;
         right: 0;

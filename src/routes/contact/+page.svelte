@@ -1,9 +1,28 @@
 <script>
+    import { onMount } from 'svelte';
     import Form from '$lib/components/Form.svelte';
     import Subscribe from '$lib/components/Subscribe.svelte';
     import '$lib/scss/fonts.css';
+
+    export let form;
+
+    let dialog;
+    let hide = false;
+
+    onMount(() => {
+        dialog = document.querySelector("dialog");
+    })
+
+    $: if (form?.sucess) {
+        dialog.showModal();
+    }
 </script>
 
+<dialog>
+    <h2>Feedback sent.</h2>
+    <p>Thank you!</p>
+    <button class="close" on:click={() => dialog.close()}>Close</button>
+</dialog>
 
 <div class="contact-wrapper">
     <section>
@@ -18,13 +37,16 @@
 
         <hr>
 
-        <Form />
+
+        {#if !form?.sucess}
+            <Form />
+        {/if}
     </section>
 
     <img src="/computer_flipped.png" alt="a desktop computer">
 </div>
 
-<Subscribe />
+<!-- <Subscribe /> -->
 
 <style lang="scss">
     .contact-wrapper {
@@ -41,6 +63,21 @@
         }
     }
 
+    button {
+        padding: 0.5rem;
+        font-size: large;
+    }
+
+    button {
+        border: none;
+        border-radius: $border-radius;
+        background: $primary;
+        color: white;
+        cursor: pointer;
+        margin-top: 2rem;
+        width: 100%;
+    }
+
     h1 {
         margin-bottom: 1rem;
     }
@@ -54,10 +91,33 @@
         color: $primary;
     }
 
-    img {
+    img{
         position: fixed;
         left: 60%;
         margin-top: 4rem;
         height: 450px;
     }
+
+    dialog {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        position: absolute;
+        padding: 2rem;
+        text-align: center;
+        border: none;
+        border-radius: $border-radius;
+        h2, p {
+            margin: 1rem 0;
+        }
+    }
+
+    dialog::backdrop {
+        backdrop-filter: blur(5px);
+    }
+
+
+
 </style>

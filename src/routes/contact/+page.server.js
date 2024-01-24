@@ -37,9 +37,11 @@ export const actions = {
             console.log('document already exists!')
             await setDoc(doc(db, "forms", docData.email), docData);
             console.log('previous doc has been overwritten!')
+            return { sucess: true };
         } else {
             await setDoc(doc(db, "forms", docData.email), docData);
             console.log('document has been written')
+            return { sucess: true };
         }
     }
 }

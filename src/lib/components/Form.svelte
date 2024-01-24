@@ -1,20 +1,25 @@
 <script>
+    import { enhance } from '$app/forms';
+    import { createEventDispatcher } from 'svelte';
+    import '$lib/scss/fonts.css';
+
+    let dispatch = createEventDispatcher();
+
     let hidden = true;
 
     function onChange(event) {
         hidden = event.currentTarget.id == 'other' ? false : true;
     }
 
-    import '$lib/scss/fonts.css';
-</script>
+    function handleSubmit() {
+        dispatch('submit')
+    }
 
-<dialog>
-    <h1>Hello world!</h1>
-</dialog>
+</script>
 
 <div class="form-container">
     <h2>Feedback</h2>
-    <form method="POST" action="?/create">
+    <form method="POST" action="?/create" use:enhance>
 
         <input on:change={onChange} name="name" type="text" placeholder="Your name (optional)">
 
@@ -96,7 +101,7 @@
             <input type="radio" name="subscribe" value="no" id="no" checked>
             <label for="no">No</label>
         </fieldset>
-        <button type="submit">Submit</button>
+        <button type="submit" on:click={handleSubmit}>Submit</button>
     </form>
 </div>
 
