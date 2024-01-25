@@ -7,14 +7,32 @@
     export let form;
 
     let dialog;
-    let hide = false;
+    let submitted = false;
+    let parsedCookie = [];
 
     onMount(() => {
+        console.log(document.cookie);
+        parsedCookie = parseCookie(document.cookie);
+        if (parsedCookie[0] == "submitted" && parsedCookie[1] == "true") {
+            submitted = true;
+        }
+
+        console.log(submitted);
+
         dialog = document.querySelector("dialog");
     })
 
     $: if (form?.sucess) {
         dialog.showModal();
+        document.cookie = "submitted=true; expires=0; SameSite=Lax";
+        submitted = true;
+    }
+
+    function parseCookie(cookie) {
+        if (cookie) {
+            return cookie.split("=");
+        }
+        return "";
     }
 </script>
 
@@ -38,8 +56,13 @@
         <hr>
 
 
-        {#if !form?.sucess}
+        {#if !submitted}
             <Form />
+        {:else}
+        <div class="resubmit">
+            <p><strong>You have already submitted feedback. If you would like to resubmit then please click below.</strong></p>
+            <button on:click={() => submitted = false}>Feedback</button>
+        </div>
         {/if}
     </section>
 
@@ -60,6 +83,9 @@
         section {
             max-width: 48%;
             min-width: 400px;
+            .resubmit {
+                margin-bottom: 5rem;
+            }
         }
     }
 
