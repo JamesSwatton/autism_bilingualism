@@ -83,9 +83,6 @@
         section {
             max-width: 48%;
             min-width: 400px;
-            .resubmit {
-                margin-bottom: 5rem;
-            }
         }
     }
 

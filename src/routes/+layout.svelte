@@ -62,6 +62,7 @@
 
     main {
         padding-top: 5rem;
+        margin-bottom: 5rem;
         color: $text-lighter;
 
         :global(h1) {
