@@ -5,10 +5,31 @@
     import '$lib/scss/fonts.css';
 
     export let data;
-
+    
+    let dialog; 
+    let video;
+    let iframe;
     let { title, subtitle, lang, Content } = data;
 
+    function showVideo() {
+        dialog.showModal();
+    }
+
+    function closeVideo(e) {
+        console.log(e);
+        if (e.target === dialog) {
+            // video.pause();
+            let iframeSrc = iframe.src;
+            iframe.src = iframeSrc;
+            dialog.close();
+        }
+    }
+
     onMount(() => {
+        dialog = document.querySelector("dialog");
+        video = document.querySelector("video");
+        iframe = document.querySelector("iframe");
+
         // set page lang
         document.documentElement.lang = lang;
 
@@ -88,13 +109,20 @@
     })
 </script>
 
+<dialog on:click={ closeVideo }>
+    <iframe src="https://www.youtube.com/embed/oPctNHggQJI?si=kFovJn_VkGrJDFXv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <!-- <form method="dialog">
+        <video controls src="/video/video.mp4"></video>
+    </form> -->
+</dialog>
+
 <div class="resources-wrapper">
 
     <div class="title-wrapper">
         <div class="title">
             <h1>{ title }</h1>
             <p>{ subtitle }</p>
-            <PlayBtnPrimary />
+            <PlayBtnPrimary on:showVideo={ showVideo }/>
             <img src="/dude_sit_3.png" alt="happy pink character sittin on grass">
         </div>
         <div class="btn-wrapper">
@@ -235,5 +263,34 @@
                 margin: 1rem 0;
             }
         }
+    }
+
+    dialog {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        padding: 0;
+        margin: auto;
+        position: absolute;
+        border: none;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    dialog::backdrop {
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+    }
+
+    video {
+        border-radius: 10px;
+        width: 800px;
+    }
+
+    iframe {
+        border-radius: 10px;
+        width: 800px;
+        height: 450px;
     }
 </style>

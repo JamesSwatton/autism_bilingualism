@@ -3,12 +3,15 @@
     import { fade } from 'svelte/transition';
     import { page } from '$app/stores';
     import { beforeUpdate, onMount } from 'svelte';
-    import { thisPage, lang } from '$lib/stores.js'
+    import { thisPage, lang, disableScroll } from '$lib/stores.js'
     import '$lib/scss/fonts.css';
 
     export let data;
 
     let blur = false;
+    // let hide = $disableScroll;
+
+    // $: hide = blur == true ? true : false;
 
     function handleClick(e) {
         blur = !blur
@@ -32,11 +35,15 @@
 
 </script>
 
-<div class="main-wrapper" class:hide={blur}>
-    <Header languages={data.versions} on:clicked={ handleClick }/> {#key data.currentRoute}
+<div class="main-wrapper" class:hide={$disableScroll}>
+    <Header languages={data.versions} on:blur={() => blur = !blur }/> {#key data.currentRoute}
         <!-- <main in:fade={{ duration: 200, delay: 200 }} out:fade={{ duration: 200 }}> -->
         <main>
-            <div class="window-blur" style:backdrop-filter={blur ? 'blur(10px)' : 'blur(0px)'}></div>
+            <div 
+            class="window-blur" 
+            style:pointer-events={blur ? 'all' : 'none'}
+            style:backdrop-filter={blur ? 'blur(10px)' : 'blur(0px)'}
+            ></div>
             <slot />
         </main>
         <!-- </main> -->

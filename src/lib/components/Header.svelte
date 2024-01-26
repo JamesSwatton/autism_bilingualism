@@ -1,5 +1,5 @@
 <script>
-    import { thisPage, lang } from '$lib/stores.js';
+    import { thisPage, lang, disableScroll } from '$lib/stores.js';
     import { tweened } from "svelte/motion";
     import { cubicOut } from "svelte/easing";
     import { createEventDispatcher } from 'svelte';
@@ -89,7 +89,8 @@
         // const language = event.target.value;
         // selectedLanguage = language;
 
-        dispatch('clicked', true)
+        dispatch('blur', true)
+        disableScroll.set(!$disableScroll);
         clicked = !clicked;
     }
 

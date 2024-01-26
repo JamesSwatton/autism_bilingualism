@@ -1,7 +1,19 @@
-<input type="submit" value="Watch the video">
+<script>
+    import { disableScroll } from '$lib/stores.js';
+    import { createEventDispatcher } from 'svelte';
+
+    let dispatch = createEventDispatcher();
+
+    function handleClick() {
+        disableScroll.set(!$disableScroll);
+        dispatch('showVideo', true);
+    }
+</script>
+
+<button on:click={ handleClick }>Watch the video</button>
 
 <style lang="scss">
-    input {
+    button {
         all: unset;
         cursor: pointer;
         background: $primary url("/play-arrow-white.svg") 93% no-repeat;
