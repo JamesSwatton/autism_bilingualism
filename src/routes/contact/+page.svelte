@@ -17,14 +17,13 @@
             submitted = true;
         }
 
-        console.log(submitted);
-
         dialog = document.querySelector("dialog");
     })
 
     $: if (form?.sucess) {
         dialog.showModal();
-        document.cookie = "submitted=true; expires=0; SameSite=Lax";
+        document.cookie = "submitted=; expires=-1;";
+        document.cookie = "submitted=true; SameSite=Lax";
         submitted = true;
     }
 
