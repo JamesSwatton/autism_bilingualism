@@ -1,4 +1,5 @@
 <script>
+    import { disableScroll } from '$lib/stores.js';
     import { onMount } from 'svelte';
     import PlayBtnPrimary from '$lib/components/PlayBtnPrimary.svelte';
     import GotoBtnPrimary from '$lib/components/GotoBtnPrimary.svelte';
@@ -19,6 +20,7 @@
         console.log(e);
         if (e.target === dialog) {
             // video.pause();
+            disableScroll.set(false);
             let iframeSrc = iframe.src;
             iframe.src = iframeSrc;
             dialog.close();
